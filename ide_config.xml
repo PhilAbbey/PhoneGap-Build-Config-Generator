@@ -1,0 +1,29 @@
+<application>
+    <name>PhoneGap Build Config.xml Generator</name>
+    <author>Matt Gifford aka coldfumonkeh</author>
+    <version>0.1</version>
+    <email>coldfumonkeh@gmail.com</email>
+    <description>
+    <![CDATA[
+    <p>Generate a Config.xml file for use with the PhoneGap Build service.</p>
+    ]]>
+    </description>
+    <license>
+    <![CDATA[
+    <p>This will cost you your soul. mwah hahaha</p>
+    ]]>
+    </license>
+    <menucontributions>
+            <contribution target="projectview">
+				<menu name="PhoneGap Build">
+					<action name="Generate Config.xml" handlerid="generateConfig" showResponse="true" />
+				</menu>
+			</contribution>
+    </menucontributions>
+    <viewcontributions>
+            <view id="generateConfigView" title="PhoneGap Build Helper" handlerid="generateConfig" />
+    </viewcontributions>
+    <handlers>
+    		<handler id="generateConfig" type="cfm" filename="generateConfig.cfm" />
+    </handlers>
+</application>
