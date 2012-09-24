@@ -212,10 +212,11 @@
 		    		<!--- Read the file contents and save in the correct format --->
 					<cfset uploadedFileContent = fileReadBinary('#local.filelocation##arguments.qqfile#') />
 					<cffile action="write" file="#local.filelocation##local.filedata['image_name']#" output="#uploadedFileContent#">
-		    		<cfset local.response['success'] = true>
-		    		<cfset local.response['type'] = 'form'>
+		    		<cfset local.response['success'] = true />
+		    		<cfset local.response['type'] = 'form' />
 					<cfset local.response['image_element'] = arguments.image_element />
 					<cfset local.response['filepath'] = '#local.filedata['location']##local.filedata['image_name']#' />
+					<cfset local.response['dataURI'] = 'data:image/*;base64,#toBase64(uploadedFileContent)#' />
 				</cfif>
 		<cfreturn local.response>
 	</cffunction>
@@ -230,13 +231,15 @@
 				<cfset local.filelocation = arguments.folder_location & '/' & local.filedata['location'] />
 				<cfif !directoryExists(local.filelocation)>
 					<cfset directoryCreate(local.filelocation) />
-				</cfif>
+				</cfif>	
 				<cffile action="write" file="#local.filelocation##local.filedata['image_name']#" output="#arguments.content#">
+				<cfset imageBinary = fileReadBinary('#local.filelocation##local.filedata['image_name']#') />
 		    	<cfset local.response = structNew()>
-		    	<cfset local.response['success'] = true>
-		    	<cfset local.response['type'] = 'xhr'>
+		    	<cfset local.response['success'] = true />
+		    	<cfset local.response['type'] = 'xhr' />
 				<cfset local.response['image_element'] = arguments.image_element />
 				<cfset local.response['filepath'] = '#local.filedata['location']##local.filedata['image_name']#' />
+				<cfset local.response['dataURI'] = 'data:image/*;base64,#toBase64(imageBinary)#' />
 		<cfreturn local.response>
     </cffunction>
     

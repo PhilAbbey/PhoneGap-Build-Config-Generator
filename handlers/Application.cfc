@@ -7,6 +7,10 @@ component {
 	public boolean function onApplicationStart() {
 		return true;
 	}
+	
+	public void function onSessionStart() {
+		
+	}
 
 	public boolean function onRequestStart(string req) {
 		return true;

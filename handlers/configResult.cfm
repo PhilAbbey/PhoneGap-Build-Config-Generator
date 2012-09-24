@@ -3,14 +3,14 @@
 <cfparam name="fileExists" 	type="boolean" default="false" />
 <cfset objConfigHelper = new cfcs.configbuilder() />
 <cfset showForm = true />
-<cfset fileLocation = '#application.projectFolderLocation#/Config.xml' />
+<cfset fileLocation = '#application.projectFolderLocation#/config.xml' />
 <cfif structKeyExists(form, "submit_configData")>
 	<cfset formData = form />
 	<cfset fileContent = objConfigHelper.createFileContent(formData) />
 	<cffile action="write" file="#fileLocation#" output="#trim(fileContent)#" />
 	<cfset showForm = false />
 </cfif>
-<!--- Check to see if a Config.xml file already exists --->
+<!--- Check to see if a config.xml file already exists --->
 <cfif fileExists(fileLocation)>
 	<cfset fileExists = true />
 	<cffile action="read" variable="fileContent" file="#fileLocation#" />
@@ -27,7 +27,7 @@
     <meta charset="utf-8">
     <title>PhoneGap Build - Config.xml Generator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A tool to generate the Config.xml file required for the PhoneGap Build service.">
+    <meta name="description" content="A tool to generate the config.xml file required for the PhoneGap Build service.">
     <meta name="author" content="Matt Gifford">
 
     <!-- Le styles -->
@@ -77,8 +77,7 @@
 				<label class="control-label" for="description">Description</label>
 				<div class="controls">
 					<textarea rows="3" id="description" name="description" class="validate[required]"></textarea>
-			    	<!---<input type="text" id="description" name="description" class="validate[required]" placeholder="Application Description" />--->
-					<a class="btn btn-small btn-info help_popovers" rel="popover" data-title="Application Description" data-content="A description for your application."><i class="icon-question-sign icon-white"></i></a>
+			    	<a class="btn btn-small btn-info help_popovers" rel="popover" data-title="Application Description" data-content="A description for your application."><i class="icon-question-sign icon-white"></i></a>
 			    </div>
 			</div>
 			
@@ -868,6 +867,7 @@
 		
 		$('.imageUpload_btn').each(function(){
 
+			var projectFolder = <cfoutput>'#application.projectFolderLocation#'</cfoutput>;
 			var buttonID = $(this).attr('id');
 			var imgElement = $('#' + buttonID + '_img');
 			var pathElement = $('#' + buttonID + '_path');
@@ -880,7 +880,7 @@
 				params: {
 					method: 'Upload',
 					image_element: $(this).attr('id'),
-					folder_location: <cfoutput>'#application.projectFolderLocation#'</cfoutput>,
+					folder_location: projectFolder,
 				},
 				multiple: false,
 				allowedExtensions: ['' + $(this).attr('data-allowed') + ''],
@@ -888,7 +888,9 @@
 
 				},
 				onComplete: function(id, fileName, responseJSON){
-					$(imgElement).attr('src', '../' + responseJSON.filepath);
+					//alert(projectFolder + '/' + responseJSON.filepath);
+					//$(imgElement).attr('src', '/' + responseJSON.filepath);
+					$(imgElement).attr('src', responseJSON.dataURI);
 					$(pathElement).val(responseJSON.filepath);
 				}
 			});
