@@ -16,8 +16,10 @@
 	<cffile action="read" variable="fileContent" file="#fileLocation#" />
 	<script>
 		var localFileContent;
+		var projectFolderLocation;
 		<cfoutput>
 			var #toScript(fileContent, "localFileContent")#
+			var #toScript(application.projectFolderLocation, "projectFolderLocation")#
 		</cfoutput>
 	</script>
 </cfif>
@@ -888,8 +890,6 @@
 
 				},
 				onComplete: function(id, fileName, responseJSON){
-					//alert(projectFolder + '/' + responseJSON.filepath);
-					//$(imgElement).attr('src', '/' + responseJSON.filepath);
 					$(imgElement).attr('src', responseJSON.dataURI);
 					$(pathElement).val(responseJSON.filepath);
 				}

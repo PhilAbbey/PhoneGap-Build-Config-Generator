@@ -113,7 +113,8 @@ $('#confirmImport_btn').click(function() {
 		url: 'cfcs/configBuilder.cfc',
 		data: {
 			method: 'readConfig',
-			fileContent: localFileContent
+			fileContent: localFileContent,
+			projectLocation: projectFolderLocation
 		},
 		success: function(data) {
 			var obj = $.parseJSON(data);
@@ -154,7 +155,7 @@ $('#confirmImport_btn').click(function() {
 					var parsedIcons = $.parseJSON($.trim(v));
 					if(parsedIcons.length) {
 						$.each(parsedIcons, function() {
-							$('#' + this.image_element + '_img').attr('src', '../' + this.image_path);
+							$('#' + this.image_element + '_img').attr('src', this.dataURI);
 							$('#' + this.image_element + '_path').val(this.image_path);
 						})
 					}

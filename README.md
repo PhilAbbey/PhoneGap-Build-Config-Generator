@@ -27,7 +27,10 @@ If the wizard detects an existing Config.xml file in that location, it will give
 Download
 ----------------
 [PhoneGap Build Config.xml Generator ](http://phonegapbuild.riaforge.org/index.cfm?event=action.download)
-    
+   
+### 1.0.3 - September 24, 2012###
+
+- Fix to resolve image display after importing and displaying existing config file 
 
 ### 1.0.2 - September 24, 2012###
 

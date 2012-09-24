@@ -135,7 +135,8 @@
 	</cffunction>
 	
 	<cffunction name="readConfig" access="remote" output="false" returnformat="JSON" hint="I read the contents of the existing Config.xml file.">
-		<cfargument name="fileContent" required="true" type="string" hint="The contents of the file." />
+		<cfargument name="fileContent" 		required="true" type="string" hint="The contents of the file." />
+		<cfargument name="projectLocation" 	required="true" type="string" hint="The string path to the selected folder location." />
 			<cfset var xmlData = xmlParse(arguments.fileContent) />
 			<cfset var stuDetails = {
 				'id' = xmlData.widget.XmlAttributes['id'],
@@ -169,7 +170,7 @@
 					<cfset arrayAppend(arrIconData,iconItem.XmlAttributes) />
 				</cfif>
 			</cfloop>
-			<cfset structInsert(stuDetails,'icondata',serializeJSON(displayImages(arrIconData))) />
+			<cfset structInsert(stuDetails,'icondata',serializeJSON(displayImages(arrIconData, arguments.projectLocation))) />
 			
 			<!--- Get splash images --->
 			<cfset var arrSplash = xmlSearch(xmlData, "//*[local-name()='splash']") />
@@ -179,7 +180,7 @@
 					<cfset arrayAppend(arrSplashData,splashItem.XmlAttributes) />
 				</cfif>
 			</cfloop>
-			<cfset structInsert(stuDetails,'splashdata',serializeJSON(displaySplashImages(arrSplashData))) />
+			<cfset structInsert(stuDetails,'splashdata',serializeJSON(displaySplashImages(arrSplashData, arguments.projectLocation))) />
 			
 			<!--- Get access --->
 			<cfset var arrayAccess = xmlSearch(xmlData, "//*[local-name()='access']") />
@@ -350,6 +351,7 @@
 	
 	<cffunction name="displayImages" output="false" access="public" hint="I read the provided JSON and display the images in the config builder window.">
 		<cfargument name="imageData" required="true" type="array" hint="JSON representation of image data from config.xml file." />
+		<cfargument name="projectLocation" 	required="true" type="string" 	hint="The string path to the selected folder location." />
 			<cfset var arrFileData = [] />
 			<cfset var arrIconData = arguments.imageData />
 				<cfloop array="#arrIconData#" index="iconItem">
@@ -397,9 +399,15 @@
 								<cfset stuFileData['image_element'] = 'icons_webos_64x64' />
 							</cfcase>
 						</cfswitch>
+						<cfset imageBinary = fileReadBinary(arguments.projectLocation & '/' & iconItem['src']) />
+						<cfset stuFileData['dataURI'] = 'data:image/*;base64,#toBase64(imageBinary)#' />
+						<cfset stuFileData['file_root'] = arguments.projectLocation />
 						<cfset stuFileData['image_path'] = iconItem['src'] />
 						<cfset arrayAppend(arrFileData,stuFileData) />
 					<cfelse>
+						<cfset imageBinary = fileReadBinary(arguments.projectLocation & '/' & iconItem['src']) />
+						<cfset stuFileData['dataURI'] = 'data:image/*;base64,#toBase64(imageBinary)#' />
+						<cfset stuFileData['file_root'] = arguments.projectLocation />
 						<cfset stuFileData['image_path'] = iconItem['src'] />
 						<cfset stuFileData['image_element'] = 'icons_default_64x64' />
 						<cfset arrayAppend(arrFileData,stuFileData) />
@@ -409,7 +417,8 @@
 	</cffunction>
 	
 	<cffunction name="displaySplashImages" output="false" access="public" hint="I read the provided JSON and display the images in the config builder window.">
-		<cfargument name="imageData" required="true" type="array" hint="JSON representation of image data from config.xml file." />
+		<cfargument name="imageData" 		required="true" type="array" 	hint="JSON representation of image data from config.xml file." />
+		<cfargument name="projectLocation" 	required="true" type="string" 	hint="The string path to the selected folder location." />
 			<cfset var arrFileData = [] />
 			<cfset var arrIconData = arguments.imageData />
 				<cfloop array="#arrIconData#" index="iconItem">
@@ -457,9 +466,17 @@
 								<cfset stuFileData['image_element'] = 'splash_winphone_36x36' />
 							</cfcase>
 						</cfswitch>
+						
+					<cfset imageBinary = fileReadBinary(arguments.projectLocation & '/' & iconItem['src']) />
+					<cfset stuFileData['dataURI'] = 'data:image/*;base64,#toBase64(imageBinary)#' />
+					<cfset stuFileData['file_root'] = arguments.projectLocation />
 					<cfset stuFileData['image_path'] = iconItem['src'] />
 					<cfset arrayAppend(arrFileData,stuFileData) />
 				<cfelse>
+					
+					<cfset imageBinary = fileReadBinary(arguments.projectLocation & '/' & iconItem['src']) />
+					<cfset stuFileData['dataURI'] = 'data:image/*;base64,#toBase64(imageBinary)#' />
+					<cfset stuFileData['file_root'] = arguments.projectLocation />
 					<cfset stuFileData['image_path'] = iconItem['src'] />
 					<cfset stuFileData['image_element'] = 'splash_default_36x36' />
 					<cfset arrayAppend(arrFileData,stuFileData) />
