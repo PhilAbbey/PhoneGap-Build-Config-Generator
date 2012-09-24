@@ -29,6 +29,10 @@ Download
 [PhoneGap Build Config.xml Generator ](http://phonegapbuild.riaforge.org/index.cfm?event=action.download)
     
 
+### 1.0.2 - September 24, 2012###
+
+- Fix to resolve image display issue after file selection
+
 ### 1.0.1 - September 04, 2012###
  
 - Commit: Initial Release
