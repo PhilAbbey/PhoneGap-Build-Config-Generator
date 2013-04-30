@@ -112,7 +112,11 @@
 				<label class="control-label" for="phonegap_version">PhoneGap Version</label>
 				<div class="controls">
 			    	<select id="phonegap_version" name="phonegap_version">
-                        <option value="2.0.0" selected>2.0.0</option>
+                        <option value="2.5.0" selected>2.5.0</option>
+						<option value="2.3.0">2.3.0</option>
+						<option value="2.2.0">2.2.0</option>
+						<option value="2.1.0">2.1.0</option>
+						<option value="2.0.0">2.0.0</option>
                         <option value="1.9.0">1.9.0</option>
                         <option value="1.8.1">1.8.1</option>
                         <option value="1.7.0">1.7.0</option>

@@ -1,7 +1,7 @@
 <application>
     <name>PhoneGap Build Config.xml Generator</name>
     <author>Matt Gifford aka coldfumonkeh</author>
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <email>coldfumonkeh@gmail.com</email>
     <description>
     <![CDATA[
@@ -14,16 +14,17 @@
     ]]>
     </license>
     <menucontributions>
-            <contribution target="projectview">
-				<menu name="PhoneGap Build">
-					<action name="Generate Config.xml" handlerid="generateConfig" showResponse="true" />
-				</menu>
-			</contribution>
+        <contribution target="projectview">
+			<menu name="PhoneGap Build">
+				<action name="Generate Config.xml" handlerid="generateConfig" showResponse="true" />
+			</menu>
+		</contribution>
     </menucontributions>
     <viewcontributions>
-            <view id="generateConfigView" title="PhoneGap Build Helper" handlerid="generateConfig" />
-    </viewcontributions>
+    	<view id="generateConfigView" 	title="PhoneGap Build Helper" 	handlerid="generateConfig" />
+	</viewcontributions>
     <handlers>
-    		<handler id="generateConfig" type="cfm" filename="generateConfig.cfm" />
+    	<handler id="generateConfig" 	type="cfm" filename="generateConfig.cfm" />
+
     </handlers>
 </application>
